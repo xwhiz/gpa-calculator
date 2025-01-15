@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NUST GPA Calculator ",
+  title: "GPA Calculator ",
   description: "GPA Calculator",
 };
 
