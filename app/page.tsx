@@ -70,6 +70,10 @@ export default function Home() {
     ]);
   };
 
+  const removeField = function (index: number) {
+    setFields(fields.filter((_, i) => i !== index));
+  };
+
   const handleValueChange = function (
     e: React.ChangeEvent,
     index: number,
@@ -92,11 +96,11 @@ export default function Home() {
       <main className="flex flex-col w-full gap-8 row-start-2 items-center sm:items-start">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
           <div className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <header className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 grid grid-cols-1 sm:grid-cols-[2fr_1fr_1fr_1fr] items-center">
+            <header className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 grid grid-cols-1 sm:grid-cols-[2fr_1fr_1fr_1fr_1fr] items-center">
               <div className="px-6 py-3 hidden sm:block">Name</div>
               <div className="px-6 py-3 hidden sm:block">Credits</div>
               <div className="px-6 py-3 hidden sm:block">Grade</div>
-              <div className="p-2 flex justify-end items-center w-full">
+              <div className="p-2 flex justify-end items-center w-full col-span-2">
                 <button
                   type="button"
                   className="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2"
@@ -110,14 +114,12 @@ export default function Home() {
               {fields.map((field, index) => (
                 <div
                   key={index}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 grid grid-cols-[1fr] sm:grid-cols-[2fr_1fr_1fr_1fr] justify-between items-center"
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 grid grid-cols-1 sm:grid-cols-[2fr_1fr_1fr_1fr_1fr] justify-between items-center"
                 >
                   <div className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     <input
                       type="text"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      min="0"
-                      max="4"
                       value={field.name}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         handleValueChange(e, index, "name")
@@ -156,7 +158,17 @@ export default function Home() {
                       <option value="F">F</option>
                     </select>
                   </div>
-                  <div className="px-6 py-4 text-right"></div>
+                  <div className="px-6 py-4 text-right">
+                    {fields.length > 1 && (
+                      <button
+                        type="button"
+                        className="text-red-500 hover:text-white bg-transparent hover:bg-red-500 border border-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                        onClick={() => removeField(index)}
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
                 </div>
               ))}
             </section>
